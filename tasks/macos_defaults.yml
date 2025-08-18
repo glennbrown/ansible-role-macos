@@ -1,0 +1,22 @@
+---
+- name: Configure macOS Defaults
+  community.general.osx_defaults:
+    domain: "{{ item.domain | default('NSGlobalDomain') }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    array_add: "{{ item.array_add | default(omit) }}"
+    value: "{{ item.value | default(omit) }}"
+  loop: "{{ macos_default_settings }}"
+  register: macos_defaults_status
+  when: macos_default_settings is defined and macos_default_settings | length > 0
+
+- name: Restart affected services
+  command:  killall "{{ item }}"
+  loop: "{{ macos_services }}"
+  when: macos_defaults_status.changed and macos_services is defined and macos_services | length > 0
+
+- name: Logout Message 
+  debug:
+    msg: "Please log out and log back in to make all settings take effect."
+  when: macos_defaults_status.changed

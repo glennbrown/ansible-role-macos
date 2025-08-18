@@ -1,1 +1,4 @@
 ---
+macos_default_settings: []
+macos_services: []
+omz_repo: 'https://github.com/ohmyzsh/ohmyzsh.git'

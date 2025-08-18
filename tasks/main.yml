@@ -1,2 +1,6 @@
 ---
-- import_tasks: quarantine_check.yml
+- import_tasks: oh-my-zsh.yml
+
+- import_tasks: macos_defaults.yml
+
+

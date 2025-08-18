@@ -1,0 +1,8 @@
+---
+# Only installs once, oh-my-zsh has a built-in upgrade function
+- name: Install oh-my-zsh
+  git:
+    repo: "{{ omz_repo }}"
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    version: master
+    update: false 
